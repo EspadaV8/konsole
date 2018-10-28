@@ -40,6 +40,11 @@
       <tooltip>When launching Konsole re-use existing process if possible</tooltip>
       <default>false</default>
     </entry>
+    <entry name="PersistAfterLastClose" type="Bool">
+      <label>Keep on running after closing the last tab</label>
+      <tooltip>If the last tab is closed Konsole will keep running and create a new tab</tooltip>
+      <default>false</default>
+    </entry>
   </group>
   <group name="SearchSettings">
     <entry name="SearchCaseSensitive" type="Bool">

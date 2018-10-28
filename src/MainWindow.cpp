@@ -97,7 +97,7 @@ MainWindow::MainWindow() :
 
     // create view manager
     _viewManager = new ViewManager(this, actionCollection());
-    connect(_viewManager, &Konsole::ViewManager::empty, this, &Konsole::MainWindow::close);
+    connect(_viewManager, &Konsole::ViewManager::empty, this, &Konsole::MainWindow::handleLastTabClosed);
     connect(_viewManager, &Konsole::ViewManager::activeViewChanged, this,
             &Konsole::MainWindow::activeViewChanged);
     connect(_viewManager, &Konsole::ViewManager::unplugController, this,
@@ -773,6 +773,18 @@ void MainWindow::applyKonsoleSettings()
     _viewManager->setNavigationBehavior(KonsoleSettings::newTabBehavior());
     setAutoSaveSettings(QStringLiteral("MainWindow"), KonsoleSettings::saveGeometryOnExit());
     updateWindowCaption();
+}
+
+void MainWindow::handleLastTabClosed()
+{
+    if (!KonsoleSettings::persistAfterLastClose()) {
+        close();
+    }
+
+    Profile::Ptr defaultProfile = ProfileManager::instance()->defaultProfile();
+    createSession(defaultProfile, QString());
+
+    hide();
 }
 
 void MainWindow::activateMenuBar()
