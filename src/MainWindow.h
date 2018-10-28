@@ -156,6 +156,7 @@ private Q_SLOTS:
     void setProfileList(ProfileList *list);
 
     void applyKonsoleSettings();
+    void handleLastTabClosed();
 
     void updateUseTransparency();
 
