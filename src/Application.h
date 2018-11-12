@@ -73,6 +73,8 @@ private Q_SLOTS:
 
     void toggleBackgroundInstance();
 
+    void handleLastTabClosed(MainWindow *window);
+
 public Q_SLOTS:
     void slotActivateRequested(QStringList args, const QString &workingDir);
 

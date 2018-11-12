@@ -116,6 +116,11 @@ Q_SIGNALS:
      */
     void viewDetached(Session *session);
 
+    /**
+     * Emitted when the last tab has been closed
+     */
+    void lastTabClosed(MainWindow *window);
+
 protected:
     // Reimplemented for internal reasons.
     void showEvent(QShowEvent *event) Q_DECL_OVERRIDE;
@@ -156,7 +161,6 @@ private Q_SLOTS:
     void setProfileList(ProfileList *list);
 
     void applyKonsoleSettings();
-    void handleLastTabClosed();
 
     void updateUseTransparency();
 
@@ -171,6 +175,7 @@ private:
     void setupActions();
     QString activeSessionDir() const;
     void triggerAction(const QString &name) const;
+    void allTabsClosed();
 
     /**
      * Returns the bookmark handler associated with this window.

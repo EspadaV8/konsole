@@ -168,6 +168,7 @@ MainWindow *Application::newMainWindow()
     connect(window, &Konsole::MainWindow::newWindowRequest, this,
             &Konsole::Application::createWindow);
     connect(window, &Konsole::MainWindow::viewDetached, this, &Konsole::Application::detachView);
+    connect(window, &Konsole::MainWindow::lastTabClosed, this, &Konsole::Application::handleLastTabClosed);
 
     return window;
 }
@@ -559,6 +560,20 @@ void Application::startBackgroundMode(MainWindow *window)
     connect(action, &QAction::triggered, this, &Application::toggleBackgroundInstance);
 
     _backgroundInstance = window;
+}
+
+void Application::handleLastTabClosed(MainWindow *window)
+{
+    if (_backgroundInstance == nullptr) {
+        window->close();
+
+        return;
+    }
+
+    Profile::Ptr defaultProfile = ProfileManager::instance()->defaultProfile();
+    _backgroundInstance->createSession(defaultProfile, QString());
+
+    _backgroundInstance->hide();
 }
 
 void Application::toggleBackgroundInstance()

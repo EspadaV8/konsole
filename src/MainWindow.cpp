@@ -97,7 +97,8 @@ MainWindow::MainWindow() :
 
     // create view manager
     _viewManager = new ViewManager(this, actionCollection());
-    connect(_viewManager, &Konsole::ViewManager::empty, this, &Konsole::MainWindow::handleLastTabClosed);
+    connect(_viewManager, &Konsole::ViewManager::empty, this, &Konsole::MainWindow::allTabsClosed);
+
     connect(_viewManager, &Konsole::ViewManager::activeViewChanged, this,
             &Konsole::MainWindow::activeViewChanged);
     connect(_viewManager, &Konsole::ViewManager::unplugController, this,
@@ -775,18 +776,6 @@ void MainWindow::applyKonsoleSettings()
     updateWindowCaption();
 }
 
-void MainWindow::handleLastTabClosed()
-{
-    if (!KonsoleSettings::persistAfterLastClose()) {
-        close();
-    }
-
-    Profile::Ptr defaultProfile = ProfileManager::instance()->defaultProfile();
-    createSession(defaultProfile, QString());
-
-    hide();
-}
-
 void MainWindow::activateMenuBar()
 {
     const QList<QAction *> menuActions = menuBar()->actions();
@@ -887,4 +876,10 @@ bool MainWindow::focusNextPrevChild(bool)
     //
     // Kpart is another different story
     return false;
+}
+
+
+void MainWindow::allTabsClosed()
+{
+    emit lastTabClosed(this);
 }
