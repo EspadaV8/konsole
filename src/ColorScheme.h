@@ -220,6 +220,8 @@ private:
     // it does not already exist
     void setRandomizationRange(int index, quint16 hue, quint8 saturation, quint8 value);
 
+    bool hasBlackBackground();
+
     QString _description;
     QString _name;
 
