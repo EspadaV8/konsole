@@ -349,7 +349,7 @@ void EditProfileDialog::setupGeneralPage(const Profile::Ptr profile)
     _ui->initialDirEdit->setText(profile->defaultWorkingDirectory());
     _ui->initialDirEdit->setClearButtonEnabled(true);
 
-    _ui->dirSelectButton->setIcon(QIcon::fromTheme(QStringLiteral("folder-open")));
+    _ui->dirSelectButton->setIcon(QIcon::fromTheme(QStringLiteral("document-open")));
     _ui->iconSelectButton->setIcon(QIcon::fromTheme(profile->icon()));
     _ui->startInSameDirButton->setChecked(profile->startInCurrentSessionDir());
 
