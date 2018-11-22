@@ -301,13 +301,13 @@ void ColorScheme::setRandomizedBackgroundColor(bool randomize)
     // adjusted as much as possible.
     //
     // the value and saturation are left alone to maintain read-ability
-    // except for black background schemes which allow a small change in
-    // the colour value
+    // except for dark background schemes which allow a change in the
+    // colour value (one less than the dark background threshold)
     if (randomize) {
         int maxValue = 0;
 
-        if (hasBlackBackground()) {
-            maxValue = 48;
+        if (hasDarkBackground()) {
+            maxValue = 126;
         }
 
         setRandomizationRange(BGCOLOR_INDEX, MAX_HUE, 255, maxValue);
@@ -316,15 +316,6 @@ void ColorScheme::setRandomizedBackgroundColor(bool randomize)
             setRandomizationRange(BGCOLOR_INDEX, 0, 0, 0);
         }
     }
-}
-
-bool ColorScheme::hasBlackBackground()
-{
-    ColorEntry background = colorTable()[BGCOLOR_INDEX];
-
-    return background.red() == 0 &&
-        background.green() == 0 &&
-        background.blue() == 0;
 }
 
 void ColorScheme::setRandomizationRange(int index, quint16 hue, quint8 saturation, quint8 value)
